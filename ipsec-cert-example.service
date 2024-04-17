@@ -1,0 +1,14 @@
+[Unit]
+Description = ipsec-cert
+After = network-online.target
+Wants = network.target
+
+[Service]
+Type = simple
+ExecStart = -/opt/ipsec/ipsec-cert /opt/ipsec/ipsec-cert.toml
+Restart = always
+RestartSec = 5
+
+[Install]
+WantedBy = multi-user.target
+
