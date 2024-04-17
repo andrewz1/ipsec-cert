@@ -1,0 +1,29 @@
+[log]
+# level = "info" # default
+syslog = false # log to console for debug
+# gelf_dst = "host:port" # graylog udp endpoint for remote log
+# gelf_host = "some_host" # graylog gelf host field
+
+[ca]
+bundle = "staging.pem" # additional (to system) certificates for staging tests
+
+[acme]
+staging = true # use letsencrypt staging
+key = "test.key" # where to read/write acme directory access key. will be generated if file not found
+email = "some-user@mail.com" # contact email if new key generated, optional
+
+[cert]
+id = "your.certificate.domain" # your domain for cert enroll, required
+key = "/tmp/ipsec-test/key.pem" # private key path, will be generated if not found
+cert = "/tmp/ipsec-test/cert.pem" # certificate path
+ca = "/tmp/ipsec-test/ca/ca%NUM%.pem" # ca and intermediate path if split is true
+split = true # split ca and certificates to different files
+# if split is false, all certs will be saved to one file (cert in config)
+# if split is true, certificates will be splited to different files, ca must be set in this case
+# if ca file name contains %NUM% field, all certs will be saved to separate files where %NUM% will be replaced by 1,2,3...
+# if ca file name does not contain %NUM% - all ca/intermediate certs will be saved to one file
+#type = "ecdsa" # key type in case of generation, "rsa" (default) or "ecdsa"
+#bits = 2048 # key bits, default 2048 in case of "rsa", 384 in case of "ecdsa"
+bind = ["10.0.11.242:80", "[::1]:80"] # list of bind addresses for http-01 check, default [ ":80" ]
+#must_staple = false # set must_staple flag on certificate
+script = "script.sh arg0 arg1" # run script after update using sh -c "script"
